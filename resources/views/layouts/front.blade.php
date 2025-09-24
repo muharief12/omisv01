@@ -43,16 +43,21 @@
                     Logout
                 </button>
             </form>
+            <button class="p-2 bg-white rounded-full">
+                <span class="relative">
+                    <a href="{{ route('carts.index')}}">
+                        <img src="{{ asset('assets/svgs/ic-shopping-bag.svg') }}" class="size-5" alt="">
+                    </a>
+
+                </span>
+            </button>
             @endauth
             <button class="p-2 bg-white rounded-full">
                 <span class="relative">
                     <a href="{{ route('carts.index')}}">
                         <img src="{{ asset('assets/svgs/ic-shopping-bag.svg') }}" class="size-5" alt="">
                     </a>
-                    @if (Auth::user()->carts()->count() > 0)
-                    <!-- notification dot -->
-                    <span class="block rounded-full size-1.5 bg-primary absolute top-0 right-0 -translate-x-1/2"></span>
-                    @endif
+
                 </span>
             </button>
         </div>

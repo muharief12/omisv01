@@ -457,7 +457,8 @@ video {
 
 body {
     --tw-bg-opacity: 1;
-    background-color: rgb(247 241 240 / var(--tw-bg-opacity));
+    /* background-color: rgb(247 241 240 / var(--tw-bg-opacity)); */
+    background-color: #eaf9f3;
     font-family: Poppins, sans-serif;
     --tw-text-opacity: 1;
     color: rgb(18 18 18 / var(--tw-text-opacity));

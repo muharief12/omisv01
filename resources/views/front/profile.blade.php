@@ -35,7 +35,7 @@
                 <img src="{{ asset('assets/svgs/ic-receipt-text-filled.svg') }}" alt="">
                 <div class="flex flex-col">
                     <p class="text-base font-semibold">
-                        Total Point
+                        Point
                     </p>
                     <p class="text-base font-normal">
                         {{ $point }} Points
