@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ComplaintStoreRequest;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\AdminFee;
 use App\Models\Category;
+use App\Models\Complaint;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\ProductTransaction;
@@ -12,7 +14,9 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\ValidationException;
 
 class FrontController extends Controller
 {
@@ -81,10 +85,13 @@ class FrontController extends Controller
     {
         $user = User::with(['transactions'])->where('id', Auth::user()->id)->first();
         $transaction = $user->transactions?->count();
+        $complaint = Complaint::whereHas('order', function ($query) {
+            $query->where('user_id', Auth::user()->id);
+        })->count();
         $point = ProductTransaction::where('user_id', Auth::user()->id)->sum('point');
 
 
-        return view('front.profile', compact('user', 'transaction', 'point'));
+        return view('front.profile', compact('user', 'transaction', 'point', 'complaint'));
     }
 
     public function profileUpdate(ProfileUpdateRequest $request): RedirectResponse
@@ -98,5 +105,87 @@ class FrontController extends Controller
         $request->user()->save();
 
         return Redirect::route('my_profile')->with('status', 'profile-updated');
+    }
+
+    public function createComplaint(ProductTransaction $order)
+    {
+        // pastikan hanya bisa akses order miliknya
+        if ($order->user_id !== Auth::user()->id) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        return view('front.complaints.create', compact('order'));
+    }
+
+    public function indexComplaint()
+    {
+        $complaints = Complaint::with('order')->whereHas('order', function ($query) {
+            $query->where('user_id', Auth::id());
+        })->get();
+
+        return view('front.complaints.index', compact('complaints'));
+    }
+
+    public function editComplaint(Complaint $complaint)
+    {
+        // dd($complaint);
+        // pastikan relasi order memang ada
+        if (!$complaint->order) {
+            abort(404, 'Order not found for this complaint.');
+        }
+
+        // validasi kepemilikan order
+        if ((int) $complaint->order->user_id !== (int) Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
+        return view('front.complaints.edit', compact('complaint'));
+    }
+
+    public function storeComplaint(Request $request, ProductTransaction $order)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'attachment' => 'nullable|image|mimes:png,jpeg,jpg',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            $validated['product_transaction_id'] = $order->id;
+            $validated['status'] = 'submission';
+
+            if ($request->hasFile('attachment')) {
+                $complaintAttachmentPath = $request->file('attachment')->store('complaint_attachment', 'public');
+                $data['attachment'] = $complaintAttachmentPath;
+            }
+
+            Complaint::create($validated);
+
+            DB::commit();
+
+            return redirect()->route('index_complaint');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $error = ValidationException::withMessages([
+                'system_error' => ['System error' . $e->getMessage()],
+            ]);
+
+            throw $error;
+        }
+    }
+
+    public function destroyComplaint(Complaint $complaint)
+    {
+        try {
+            $complaint->delete();
+            return redirect()->route('index_complaint');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $error = ValidationException::withMessages([
+                'system_error' => ['System Error ' . $e->getMessage()],
+            ]);
+            throw $error;
+        }
     }
 }

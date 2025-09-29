@@ -18,6 +18,16 @@
         <a href="{{ url('login')}}" class="inline-flex w-max text-white font-bold text-base bg-primary rounded-full px-[30px] py-3 justify-center items-center whitespace-nowrap">
             Login
         </a>
+        <div class="flex items-center gap-[10px]">
+            <button class="p-2 bg-white rounded-full">
+                <span class="relative">
+                    <a href="{{ route('carts.index')}}">
+                        <img src="{{ asset('assets/svgs/ic-shopping-bag.svg') }}" class="size-5" alt="">
+                    </a>
+
+                </span>
+            </button>
+        </div>
         @endguest
         @auth
         <div class="flex items-center gap-3">
@@ -34,9 +44,7 @@
                 </p>
             </div>
         </div>
-        @endauth
         <div class="flex items-center gap-[10px]">
-            @auth
             <form action="{{ route('logout')}}" method="post">
                 @csrf
                 <button type="submit" class="inline-flex w-max text-white font-bold text-sm bg-red-500 rounded-full px-1 py-2 justify-center items-center whitespace-nowrap">
@@ -51,16 +59,8 @@
 
                 </span>
             </button>
-            @endauth
-            <button class="p-2 bg-white rounded-full">
-                <span class="relative">
-                    <a href="{{ route('carts.index')}}">
-                        <img src="{{ asset('assets/svgs/ic-shopping-bag.svg') }}" class="size-5" alt="">
-                    </a>
-
-                </span>
-            </button>
         </div>
+        @endauth
     </section>
 
     @yield('content')

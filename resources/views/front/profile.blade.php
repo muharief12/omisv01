@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart | Parma</title>
+    <title>My Profile | ABC Coffee Shop</title>
     <link rel="shortcut icon" href="{{ asset('assets/svgs/logo-mark.svg') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -40,9 +40,6 @@
                     <p class="text-base font-normal">
                         {{ $point }} Points
                     </p>
-                    <!-- <label for="email" class="text-base font-semibold">Email Address</label>
-                    <input type="email" name="email" value="{{ $user->name }}" id="email__"
-                        class="form-input" style="background-image: url('{{ asset('assets/svgs/ic-email.svg') }}')" placeholder="Your email address"> -->
                 </div>
             </label>
             <label
@@ -50,37 +47,45 @@
                 <!-- <input type="radio" name="payment_method" id="creditMethod" class="absolute opacity-0"> -->
                 <img src="{{ asset('assets/svgs/ic-card-filled.svg') }}" alt="">
                 <div class="flex flex-col">
-                    <p class="text-base font-semibold">
-                        Transaction
-                    </p>
+                    <a href="{{ route('orders')}}">
+                        <p class="text-base font-semibold">
+                            Transaction
+                        </p>
+                    </a>
                     <p class="text-base font-normal">
                         {{ number_format($transaction) }} Trx
                     </p>
-                    <!-- <label for="email" class="text-base font-semibold">Email Address</label>
-                    <input type="email" name="email" value="{{ $user->name }}" id="email__"
-                        class="form-input" style="background-image: url('{{ asset('assets/svgs/ic-email.svg') }}')" placeholder="Your email address"> -->
+                </div>
+            </label>
+            <label
+                class="relative rounded-2xl bg-white flex gap-2.5 px-3.5 py-3 items-center justify-start has-[:checked]:ring-2 has-[:checked]:ring-primary transition-all">
+                <!-- <input type="radio" name="payment_method" id="creditMethod" class="absolute opacity-0"> -->
+                <img src="{{ asset('assets/svgs/ic-card-filled.svg') }}" alt="" />
+                <div class="flex flex-col">
+                    <a href="{{ route('index_complaint') }}">
+                        <p class="text-base font-semibold">
+                            Complaint
+                        </p>
+                    </a>
+                    <p class="text-base font-normal">
+                        {{ number_format($complaint) }} Items
+                    </p>
+                </div>
+            </label>
+            <label
+                class="relative rounded-2xl bg-white flex gap-2.5 px-3.5 py-3 items-center justify-start has-[:checked]:ring-2 has-[:checked]:ring-primary transition-all">
+                <!-- <input type="radio" name="payment_method" id="manualMethod" class="absolute opacity-0"> -->
+                <img src="{{ asset('assets/svgs/ic-receipt-text-filled.svg') }}" alt="">
+                <div class="flex flex-col">
+                    <p class="text-base font-semibold">
+                        Comission
+                    </p>
+                    <p class="text-base font-normal">
+                        <span class="inline-flex items-center rounded-md bg-red-400/10 px-2 py-1 text-xs font-medium text-red-500 inset-ring inset-ring-red-400/20">Development</span>
+                    </p>
                 </div>
             </label>
         </div>
-        <!-- <div class="p-4 mt-0.5 bg-white rounded-3xl hidden" id="manualPaymentDetail">
-            <div class="flex flex-col gap-5">
-                <p class="text-base font-bold">
-                    Send Payment to
-                </p>
-                <div class="inline-flex items-center gap-2.5">
-                    <img src="{{ asset('assets/svgs/ic-bank.svg') }}" class="size-5" alt="">
-                    <p class="text-base font-semibold">
-                        GOPAY AN. Muhammad Arief Ardyansyah
-                    </p>
-                </div>
-                <div class="inline-flex items-center gap-2.5">
-                    <img src="{{ asset('assets/svgs/ic-security-card.svg') }}" class="size-5" alt="">
-                    <p class="text-base font-semibold">
-                        085800288265
-                    </p>
-                </div>
-            </div>
-        </div> -->
     </section>
 
     <!-- Delivery to -->

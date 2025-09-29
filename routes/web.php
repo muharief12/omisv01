@@ -48,6 +48,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('orders/', [FrontController::class, 'orders'])->name('orders');
     Route::get('orders/{order:code}', [FrontController::class, 'orderDetail'])->name('order_detail');
+    Route::get('orders/{order:code}/complaint/create', [FrontController::class, 'createComplaint'])->name('create_complaint');
+    Route::post('orders/{order:code}/complaint/store', [FrontController::class, 'storeComplaint'])->name('store_complaint');
+    Route::delete('complaints/{complaint:id}/destroy', [FrontController::class, 'destroyComplaint'])->name('destroy_complaint');
+    Route::get('complaints/edit/{complaint:id}', [FrontController::class, 'editComplaint'])->name('edit_complaint');
+    Route::get('complaints/', [FrontController::class, 'indexComplaint'])->name('index_complaint');
 
     Route::get('my-profile/', [FrontController::class, 'profile'])->name('my_profile');
     Route::post('my-profile/update', [FrontController::class, 'profileUpdate'])->name('my_profile.update');

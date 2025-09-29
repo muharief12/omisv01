@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Order Detail | Parma</title>
+  <title>Create Complaint | ABC Coffee Shop</title>
   <link rel="shortcut icon" href="{{ asset('assets/svgs/logo-mark.svg') }}" type="image/x-icon">
   <link rel="stylesheet" href="{{ asset('css/main.css') }}">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -17,12 +17,12 @@
       <img src="{{ asset('assets/svgs/ic-arrow-left.svg') }}" class="size-5" alt="">
     </a>
     <p class="absolute text-base font-semibold translate-x-1/2 -translate-y-1/2 top-1/2 right-1/2">
-      Order Details
+      Order Complaint
     </p>
   </section>
 
   <!-- Items -->
-  <section class="wrapper flex flex-col gap-2.5">
+  <!-- <section class="wrapper flex flex-col gap-2.5">
     <div class="flex items-center justify-between">
       <p class="text-base font-bold">
         Items
@@ -69,66 +69,11 @@
       <p>You don't have any product on the carts</p>
       @endforelse
     </div>
-  </section>
+  </section> -->
 
-  <!-- Details Payment -->
-  <section class="wrapper flex flex-col gap-2.5">
-    <div class="flex items-center justify-between">
-      <p class="text-base font-bold">
-        Details Payment
-      </p>
-      <button type="button" class="p-2 bg-white rounded-full" data-expand="__detailsPayment">
-        <img src="{{ asset('assets/svgs/ic-chevron.svg') }}" class="transition-all duration-300 -rotate-180 size-5" alt="">
-      </button>
-    </div>
-    <div class="p-6 bg-white rounded-3xl" id="__detailsPayment">
-      <ul class="flex flex-col gap-5">
-        <li class="flex items-center justify-between">
-          <p class="text-base font-semibold first:font-normal">
-            Total
-          </p>
-          <p class="text-base font-semibold first:font-normal" id="checkout-subtotal">
-            Rp {{ number_format($order->point * 1000)}}
-          </p>
-        </li>
-        <li class="flex items-center justify-between">
-          <p class="text-base font-semibold first:font-normal">
-            PPN {{ $adminFee->tax }}%
-          </p>
-          <p class="text-base font-semibold first:font-normal" id="checkout-ppn">
-            Rp {{ number_format($order->point * 1000 * $adminFee->tax / 100 )}}
-          </p>
-        </li>
-        <li class="flex items-center justify-between">
-          <p class="text-base font-semibold first:font-normal">
-            Insurance {{ $adminFee->insurance }}%
-          </p>
-          <p class="text-base font-semibold first:font-normal" id="checkout-insurance">
-            Rp {{ number_format($order->point * 1000 * $adminFee->insurance)}}
-          </p>
-        </li>
-        <li class="flex items-center justify-between">
-          <p class="text-base font-semibold first:font-normal">
-            Delivery {{ $adminFee->delivery }}%
-          </p>
-          <p class="text-base font-semibold first:font-normal" id="checkout-delivery">
-            Rp {{ number_format($order->point * 1000 * $adminFee->delivery)}}
-          </p>
-        </li>
-        <li class="flex items-center justify-between">
-          <p class="text-base font-bold first:font-normal">
-            Grand Total
-          </p>
-          <p class="text-base font-bold first:font-normal text-primary" id="checkout-grand-total">
-            Rp {{ number_format($order->total_amount)}}
-          </p>
-        </li>
-      </ul>
-    </div>
-  </section>
 
   <!-- Payment Method -->
-  <section class="wrapper flex flex-col gap-2.5">
+  <!-- <section class="wrapper flex flex-col gap-2.5">
     <div class="flex items-center justify-between">
       <p class="text-base font-bold">
         Payment Method
@@ -150,61 +95,66 @@
         </p>
       </label>
     </div>
-  </section>
+  </section> -->
 
   <!-- Delivery to -->
   <section class="wrapper flex flex-col gap-2.5 pb-40">
+    @if ($errors->any())
+    <ul>
+      @foreach ($errors->all() as $error)
+      <li class="py-5 px-5 bg-red-500 text-white rounded-full">
+        {{ $error}}
+      </li>
+      @endforeach
+    </ul>
+    @endif
     <div class="flex items-center justify-between">
       <p class="text-base font-bold">
-        Delivery to
+        Complaint Details
       </p>
       <button type="button" class="p-2 bg-white rounded-full" data-expand="deliveryForm">
         <img src="{{ asset('assets/svgs/ic-chevron.svg') }}" class="transition-all duration-300 -rotate-180 size-5" alt="">
       </button>
     </div>
     <div class="flex flex-col gap-5 p-6 bg-white rounded-3xl" id="deliveryForm">
-      <!-- Address -->
-      <div class="flex flex-col gap-2.5">
-        <label for="address" class="text-base font-semibold">Address</label>
-        <p type="text" name="address" id="address__" class="form-input bg-[url('{{ asset('assets/svgs/ic-location.svg') }}')]">{{ $order->address }}</p>
-      </div>
-      <!-- City -->
-      <div class="flex flex-col gap-2.5">
-        <label for="city" class="text-base font-semibold">City</label>
-        <p type="text" name="city" id="city__" class="form-input bg-[url('{{ asset('assets/svgs/ic-map.svg') }}')]">{{ $order->city }}</p>
-      </div>
-      <!-- Post Code -->
-      <div class="flex flex-col gap-2.5">
-        <label for="postal_code" class="text-base font-semibold">Post Code</label>
-        <p type="number" name="postal_code" id="postcode__"
-          class="form-input bg-[url('{{ asset('assets/svgs/ic-house.svg') }}')]">{{ $order->postal_code }}</p>
-      </div>
-      <!-- Phone Number -->
-      <div class=" flex flex-col gap-2.5">
-        <label for="phone_number" class="text-base font-semibold">Phone Number</label>
-        <p type="number" name="phone_number" id="phonenumber__"
-          class="form-input bg-[url('{{ asset('assets/svgs/ic-phone.svg') }}')]">{{ $order->phone_number }}</p>
-      </div>
-      <!-- Add. Notes -->
-      <div class=" flex flex-col gap-2.5">
-        <label for="notes" class="text-base font-semibold">Add. Notes</label>
-        <span class="relative">
-          <img src="{{ asset('assets/svgs/ic-edit.svg') }}" class="absolute size-5 top-4 left-4" alt="">
-          <p name="notes" id="notes__"
-            class="form-input !rounded-2xl w-full min-h-[150px]" placeholder="Catatan khusus">{{ $order->notes ?? '-' }}</p>
-        </span>
-      </div>
-      <!-- Proof of Payment -->
-      <div class="flex flex-col gap-2.5">
-        <label for="proof" class="text-base font-semibold">Proof of Payment</label>
-        @if ($order->proof)
-        <img src="{{ Storage::url($order->proof) }}" class="size-5" alt="">
-        @endif
-      </div>
+      <ul class="flex flex-col gap-5">
+        <li class="flex items-center justify-between">
+          <p class="text-base font-semibold first:font-normal">
+            Order Code
+          </p>
+          <p class="text-base font-semibold first:font-normal" id="checkout-subtotal">
+            {{$order->code }}
+          </p>
+        </li>
+      </ul>
+      <hr>
+      <form action="{{ route('store_complaint', $order) }}" method="post" enctype="multipart/form-data">
+        @csrf
+        <!-- title -->
+        <div class="flex flex-col gap-2.5 mb-3">
+          <label for="title" class="text-base font-semibold">Title</label>
+          <input type="text" name="title" id="title__" class="form-input" autofocus />
+        </div>
+        <!-- Desc -->
+        <div class=" flex flex-col gap-2.5 mb-3">
+          <label for="description" class="text-base font-semibold">Add Decription</label>
+          <span class="relative">
+            <img src="{{ asset('assets/svgs/ic-edit.svg') }}" class="absolute size-5 top-4 left-4" alt="">
+            <textarea name="description" id="decription__"
+              class="form-input !rounded-2xl w-full min-h-[150px]" placeholder="Catatan khusus"></textarea>
+          </span>
+        </div>
+        <!-- Attachment -->
+        <div class="flex flex-col gap-2.5 mb-3">
+          <label for="attachment" class="text-base font-semibold">Attachment</label>
+          <input type="file" name="attachment"
+            class="form-input bg-[url('{{ asset('assets/svgs/ic-folder-add.svg') }}')]">
+        </div>
+        <button type="submit" class="w-full items-center justify-center px-5 py-3 text-base font-bold text-white rounded-full bg-primary whitespace-nowrap">
+          Submit
+        </button>
+      </form>
     </div>
-    <a href="{{ route('create_complaint', $order->code)}}" class="inline-flex items-center justify-center px-5 py-3 text-base font-bold text-white rounded-full w-full bg-primary whitespace-nowrap">
-      Order Complaint
-    </a>
     </div>
   </section>
 
