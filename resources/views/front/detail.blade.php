@@ -8,6 +8,7 @@
   <link rel="shortcut icon" href="{{ asset('assets/svgs/logo-mark.svg') }}') }}" type="image/x-icon">
   <link rel="stylesheet" href="{{ asset('css/main.css') }}">
   <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
@@ -125,12 +126,19 @@
       </a>
       @endguest
       @auth
+      @if ($product->stock === 0)
+      <button type="button" class="inline-flex w-max text-white font-bold text-base bg-gray-400 rounded-full px-[30px] py-3 justify-center items-center whitespace-nowrap">
+        Out of Stock
+      </button>
+
+      @else
       <form action="{{ route('carts.add', $product->id)}}" method="post">
         @csrf
         <button type="submit" class="inline-flex w-max text-white font-bold text-base bg-primary rounded-full px-[30px] py-3 justify-center items-center whitespace-nowrap">
           Add to Cart
         </button>
       </form>
+      @endif
       @endauth
     </div>
   </section>

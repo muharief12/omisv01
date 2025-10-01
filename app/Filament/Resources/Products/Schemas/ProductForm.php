@@ -35,6 +35,13 @@ class ProductForm
                     ->directory('products')
                     ->required()
                     ->columnSpanFull(),
+                TextInput::make('cost_price')
+                    ->required()
+                    ->numeric()
+                    ->prefix('Rp'),
+                TextInput::make('safety_stock')
+                    ->required()
+                    ->numeric(),
             ]);
     }
 }

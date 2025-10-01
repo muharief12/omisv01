@@ -62,6 +62,13 @@ class ProductTransactionController extends Controller
             $cartItems = $user->carts;
 
             foreach ($cartItems as $item) {
+                $product = $item->product;
+                if ($product->stock < $item->qty) {
+                    DB::rollBack();
+                    return back()->withErrors([
+                        'stock_error' => "Stok produk {$product->name} tidak mencukupi. Tersisa {$product->stock}, Anda minta {$item->qty}."
+                    ]);
+                }
                 $total += $item->sub_total;
             }
 
@@ -86,6 +93,7 @@ class ProductTransactionController extends Controller
             $newTransaction = ProductTransaction::create($validated);
 
             foreach ($cartItems as $item) {
+                $product = $item->product;
                 TransactionDetail::create([
                     'product_transaction_id' => $newTransaction->id,
                     'product_id' => $item->product->id,
@@ -94,6 +102,9 @@ class ProductTransactionController extends Controller
                     'sub_total' => $item->sub_total,
                     'point' => $point,
                 ]);
+
+                // ✅ Update stok
+                $product->decrement('stock', $item->qty);
 
                 $item->delete();
             }

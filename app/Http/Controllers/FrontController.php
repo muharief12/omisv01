@@ -47,7 +47,6 @@ class FrontController extends Controller
 
     public function details(Product $product)
     {
-
         return view('front.detail', compact('product'));
     }
 

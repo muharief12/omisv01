@@ -28,6 +28,9 @@ class ProductsTable
                 TextColumn::make('price')
                     ->money('IDR')
                     ->sortable(),
+                TextColumn::make('stock')
+                    ->numeric()
+                    ->sortable(),
                 TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()

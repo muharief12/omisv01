@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Inventory;
+use App\Observers\InventoryObeserver;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,5 +26,6 @@ class AppServiceProvider extends ServiceProvider
         // if (config('app.env') === 'local') {
         //     URL::forceHttps();
         // }
+        Inventory::observe(InventoryObeserver::class);
     }
 }

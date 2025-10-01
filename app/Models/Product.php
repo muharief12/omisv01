@@ -28,6 +28,11 @@ class Product extends Model
         return $this->hasMany(Cart::class, 'product_id');
     }
 
+    public function inventories()
+    {
+        return $this->hasMany(Inventory::class, 'product_id', 'id');
+    }
+
     protected static function booted()
     {
         static::creating(function ($product) {
