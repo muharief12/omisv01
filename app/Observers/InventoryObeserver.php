@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Inventory;
 use App\Models\Product;
+use App\Models\TransactionDetail;
 
 class InventoryObeserver
 {
@@ -50,13 +51,11 @@ class InventoryObeserver
     private function updateStock(Inventory $inventory)
     {
         $product = Product::find($inventory->product_id);
+        $productSell = TransactionDetail::where('product_id', $inventory->product_id)->sum('qty') ?? 0;
         if ($product) {
-            $totalStock = $product->inventories()->sum('qty');
+            $totalStock = $product->inventories()->sum('qty') - $productSell;
             $product->stock = $totalStock;
             $product->save();
         }
-        $totalStock = $product->inventories()->sum('qty');
-        $product->stock = $totalStock;
-        $product->save();
     }
 }
