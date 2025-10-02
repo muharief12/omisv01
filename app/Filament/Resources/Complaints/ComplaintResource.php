@@ -15,12 +15,15 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use UnitEnum;
 
 class ComplaintResource extends Resource
 {
+    protected static string | UnitEnum | null $navigationGroup = 'Order Management';
+    protected static ?int $navigationSort = 2;
     protected static ?string $model = Complaint::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::ChatBubbleBottomCenterText;
 
     public static function form(Schema $schema): Schema
     {

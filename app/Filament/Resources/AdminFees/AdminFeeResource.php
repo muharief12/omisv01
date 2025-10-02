@@ -13,12 +13,15 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class AdminFeeResource extends Resource
 {
     protected static ?string $model = AdminFee::class;
+    protected static ?int $navigationSort = 80;
+    protected static string | UnitEnum | null $navigationGroup = 'Policy Management';
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::CurrencyDollar;
 
     protected static ?string $recordTitleAttribute = 'Admin Fee';
 
