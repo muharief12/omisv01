@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\AdminFee;
 use App\Models\Cart;
+use App\Models\Discount;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +17,7 @@ class CartController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         $adminFee = AdminFee::where('is_active', 1)->first();
@@ -28,19 +30,103 @@ class CartController extends Controller
             ];
         }
 
-        // $productCarts = Cart::with('product')->where('user_id', $user->id)->get();
+
         $productCarts = $user->carts()->with('product')->get();
-        // $totalPrice = Cart::where('user_id', $user->id)->with('product')->get()->sum(function ($cart) {
-        //     return $cart->product ? $cart->product->price : 0;
-        // });
+
         $totalPrice = Cart::where('user_id', $user->id)->with('product')->get()->sum('sub_total');
+
+        // --- DISCOUNT HANDLING ---
+        $discountCode = $request->query('discount_code');
+
+        if ($discountCode) {
+            // cek discount berdasarkan code
+            $discount = Discount::where('code', $discountCode)->first();
+            $userAffiliate = User::where('affiliate_code', $discountCode)->first();
+
+            // jika ditemukan di table discounts
+            if ($discount) {
+                session(['discount_code' => $discountCode]);
+            }
+            // jika ditemukan di affiliate user dan bukan milik sendiri
+            elseif ($userAffiliate && $userAffiliate->id !== Auth::id()) {
+                session(['discount_code' => $discountCode]);
+            }
+            // kalau tidak ditemukan di keduanya
+            else {
+                return redirect()->back()->withErrors([
+                    'discount_code' => "Kode discount/affiliate '{$discountCode}' tidak valid."
+                ]);
+            }
+        } else {
+            // kalau tidak ada query, tapi ada di session → tetap dipakai
+            if (session()->has('discount_code')) {
+                return redirect()->route('carts.index', [
+                    'discount_code' => session('discount_code')
+                ]);
+            }
+        }
+
+        $discountCode = session('discount_code'); // ambil dari session saja
+        $discountAmount = 0;
+        $discountData = null;
+
+        if ($discountCode) {
+            // cek discount berdasarkan code
+            $discount = Discount::where('code', $discountCode)->first();
+
+            if ($discount) {
+                $discountAmount = $totalPrice * ($discount->percentage / 100);
+                $discountData = [
+                    'type' => 'discount',
+                    'code' => $discount->code,
+                    'percentage' => $discount->percentage,
+                ];
+            } else {
+                // cek affiliate code pada user
+                $userAffiliate = User::where('affiliate_code', $discountCode)->first();
+
+                if ($userAffiliate) {
+                    $affiliateDiscount = Discount::where('name', 'affiliate')->first();
+
+                    if ($affiliateDiscount) {
+                        $discountAmount = $totalPrice * ($affiliateDiscount->percentage / 100);
+                        $discountData = [
+                            'type' => 'affiliate',
+                            'code' => $userAffiliate->affiliate_code,
+                            'percentage' => $affiliateDiscount->percentage,
+                        ];
+                    }
+                }
+            }
+        }
+
         $ppn = $adminFee->tax * $totalPrice / 100;
         $insurance = $adminFee->insurance * $totalPrice;
         $delivery = $adminFee->delivery * $totalPrice;
-        $grandTotal = $totalPrice + $ppn + $insurance + $delivery;
+        $grandTotal = ($totalPrice - $discountAmount) + $ppn + $insurance + $delivery;
 
-        return view('front.carts', compact('productCarts', 'totalPrice', 'adminFee', 'ppn', 'insurance', 'delivery', 'grandTotal'));
+        return view('front.carts', compact(
+            'productCarts',
+            'totalPrice',
+            'adminFee',
+            'ppn',
+            'insurance',
+            'delivery',
+            'discountAmount',
+            'discountData',
+            'discountCode',
+            'grandTotal'
+        ));
     }
+
+    public function removeDiscount(Request $request)
+    {
+        // hapus dari session
+        $request->session()->forget('discount_code');
+        return redirect()->route('carts.index')->with('success', 'Discount code removed successfully.');
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -131,7 +217,7 @@ class CartController extends Controller
         $cart->sub_total = $cart->qty * $product->price;
         $cart->save();
 
-        return redirect()->route('carts.index')
+        return redirect()->back()
             ->with('success', 'Cart updated successfully');
     }
 

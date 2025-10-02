@@ -74,14 +74,14 @@
             </label>
             <label
                 class="relative rounded-2xl bg-white flex gap-2.5 px-3.5 py-3 items-center justify-start has-[:checked]:ring-2 has-[:checked]:ring-primary transition-all">
-                <!-- <input type="radio" name="payment_method" id="manualMethod" class="absolute opacity-0"> -->
                 <img src="{{ asset('assets/svgs/ic-receipt-text-filled.svg') }}" alt="">
                 <div class="flex flex-col">
                     <p class="text-base font-semibold">
                         Comission
                     </p>
                     <p class="text-base font-normal">
-                        <span class="inline-flex items-center rounded-md bg-red-400/10 px-2 py-1 text-xs font-medium text-red-500 inset-ring inset-ring-red-400/20">Development</span>
+                        <!-- <span class="inline-flex items-center rounded-md bg-red-400/10 px-2 py-1 text-xs font-medium text-red-500 inset-ring inset-ring-red-400/20">Development</span> -->
+                        Rp {{ number_format($comission) }}
                     </p>
                 </div>
             </label>
@@ -118,6 +118,12 @@
                     <label for="password" class="text-base font-semibold">Password</label>
                     <input type="password" name="password" value="{{ $user->password }}" id="password__"
                         class="form-input" style="background-image: url('{{ asset('assets/svgs/ic-lock.svg') }}')" placeholder="Protect your password">
+                </div>
+                <!-- AM Code -->
+                <div class="flex flex-col gap-2.5">
+                    <label for="affiliate_code" class="text-base font-semibold">Affiliate Code</label>
+                    <input type="text" name="affiliate_code" value="{{ $user->affiliate_code ?? $affiliateCode }}" id="affiliate_code"
+                        class="form-input" style="background-image: url('{{ asset('assets/svgs/ic-profile.svg') }}')" placeholder="Your Affiliate Code">
                 </div>
                 <!-- Address -->
                 <div class="flex flex-col gap-2.5">

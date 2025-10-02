@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('carts', CartController::class);
     Route::post('carts/add/{productId}', [CartController::class, 'store'])->name('carts.add');
+    Route::get('/carts/discount/remove', [CartController::class, 'removeDiscount'])->name('cart.discount.remove');
     Route::post('/carts/{cart}/update-qty', [CartController::class, 'updateQuantity'])->name('carts.updateQty');
 
 

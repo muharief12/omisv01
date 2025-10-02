@@ -88,9 +88,10 @@ class FrontController extends Controller
             $query->where('user_id', Auth::user()->id);
         })->count();
         $point = ProductTransaction::where('user_id', Auth::user()->id)->sum('point');
+        $affiliateCode = $user->affiliate_code ?? ('AM' . rand(1000, 9999));
+        $comission = ProductTransaction::where('am_code', $affiliateCode)->count() * AdminFee::where('is_active', 1)->first()->am_comission;
 
-
-        return view('front.profile', compact('user', 'transaction', 'point', 'complaint'));
+        return view('front.profile', compact('user', 'transaction', 'point', 'complaint', 'affiliateCode', 'comission'));
     }
 
     public function profileUpdate(ProfileUpdateRequest $request): RedirectResponse

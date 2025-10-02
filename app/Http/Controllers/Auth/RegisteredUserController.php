@@ -40,6 +40,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'affiliate_code' => 'AM' . rand(1000, 9999),
         ]);
 
         // $user->assignRole('buyer');

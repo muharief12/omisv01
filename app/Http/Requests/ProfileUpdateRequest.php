@@ -25,6 +25,7 @@ class ProfileUpdateRequest extends FormRequest
             'phone_number' => ['required', 'string'],
             'profession' => ['required', 'string'],
             'bod' => ['required', 'date'],
+            'affiliate_code' => ['nullable', 'string', 'max:10'],
         ];
     }
 }

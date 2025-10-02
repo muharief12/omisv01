@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdminFee;
+use App\Models\Discount;
 use App\Models\ProductTransaction;
 use App\Models\TransactionDetail;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -72,10 +74,37 @@ class ProductTransactionController extends Controller
                 $total += $item->sub_total;
             }
 
+            // --- DISCOUNT HANDLING ---
+            $discountCode = session('discount_code');
+            $discountAmount = 0;
+            $discountId = null;
+            $amCode = null;
+
+            if ($discountCode) {
+                // cek discount biasa
+                $discount = Discount::where('code', $discountCode)->first();
+                if ($discount) {
+                    $discountAmount = $total * ($discount->percentage / 100);
+                    $discountId = $discount->id;
+                } else {
+                    // cek affiliate user
+                    $userAffiliate = User::where('affiliate_code', $discountCode)->first();
+                    if ($userAffiliate) {
+                        $affiliateDiscount = Discount::where('name', 'affiliate')->first();
+                        if ($affiliateDiscount) {
+                            $discountAmount = $total * ($affiliateDiscount->percentage / 100);
+                            $discountId = $affiliateDiscount->id;
+                            $amCode = $userAffiliate->affiliate_code;
+                        }
+                    }
+                }
+            }
+
             $tax = (int)round($adminFee->tax * $total / 100);
             $insurance = (int)round($adminFee->insurance * $total);
             $deliveryFee = (int)round($adminFee->delivery * $total);
             $grandTotal = $total + $deliveryFee + $tax + $insurance;
+
             $point = $total / 1000;
             $code = 'TRX-' . mt_rand(100000, 999999);
 
@@ -84,6 +113,8 @@ class ProductTransactionController extends Controller
             $validated['is_paid'] = 0;
             $validated['point'] = $point;
             $validated['code'] = $code;
+            $validated['discount_id'] = $discountId;
+            $validated['am_code'] = $amCode;
 
             if ($request->hasFile('proof')) {
                 $proofPath = $request->file('proof')->store('payment_proofs', 'public');
@@ -108,6 +139,10 @@ class ProductTransactionController extends Controller
 
                 $item->delete();
             }
+
+            // hapus discount_code setelah checkout sukses
+            session()->forget('discount_code');
+
             DB::commit();
 
             return redirect()->route('orders');

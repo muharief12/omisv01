@@ -130,6 +130,51 @@
     </div>
   </section>
 
+  <!-- Discount Section -->
+  <section class="wrapper flex flex-col gap-2.5">
+    <div class="flex items-center justify-between">
+      <p class="text-base font-bold">
+        Discount Code
+      </p>
+      <button type="button" class="p-2 bg-white rounded-full" data-expand="deliveryForm">
+        <img src="{{ asset('assets/svgs/ic-chevron.svg') }}" class="transition-all duration-300 -rotate-180 size-5" alt="">
+      </button>
+    </div>
+    <div class="flex flex-col gap-5 p-6 bg-white rounded-3xl" id="deliveryForm">
+      <!-- discount code -->
+      <div class="flex flex-col gap-2.5">
+        <label for="discount_code" class="text-base font-semibold">Code</label>
+
+        <div class="flex items-center gap-2">
+          <!-- Form Apply Discount -->
+          <form action="{{ route('carts.index') }}" method="GET" class="flex-1 flex gap-2">
+            <input type="text" name="discount_code" id="discount_code"
+              class="form-input flex-1 bg-[url('{{ asset('assets/svgs/ic-edit.svg') }}')]"
+              value="{{ $discountCode ?? '' }}">
+            <button type="submit"
+              class="inline-flex items-center justify-center px-5 py-3 text-base font-bold text-white rounded-full bg-primary whitespace-nowrap">
+              Apply
+            </button>
+          </form>
+
+          <!-- Form Reset Discount -->
+          @if (session('discount_code'))
+          <form action="{{ route('cart.discount.remove') }}" method="GET">
+            <button type="submit"
+              class="inline-flex items-center justify-center px-5 py-3 text-base font-bold text-white rounded-full bg-red-500 whitespace-nowrap">
+              Reset
+            </button>
+          </form>
+          @endif
+        </div>
+      </div>
+
+    </div>
+
+    </div>
+    </div>
+  </section>
+
   <!-- Details Payment -->
   <section class="wrapper flex flex-col gap-2.5">
     <div class="flex items-center justify-between">
@@ -172,6 +217,14 @@
           </p>
           <p class="text-base font-semibold first:font-normal" id="checkout-delivery">
             Rp {{ number_format($delivery)}}
+          </p>
+        </li>
+        <li class="flex items-center justify-between">
+          <p class="text-base font-semibold first:font-normal">
+            Disscount {{ $discountData['percentage'] ?? 0 }}%
+          </p>
+          <p class="text-base font-semibold first:font-normal" id="checkout-delivery">
+            ( Rp {{ number_format($discountAmount ?? 0)}})
           </p>
         </li>
         <li class="flex items-center justify-between">
@@ -241,7 +294,7 @@
     <section class="wrapper flex flex-col gap-2.5 pb-40">
       <div class="flex items-center justify-between">
         <p class="text-base font-bold">
-          Delivery to
+          Profile Customer
         </p>
         <button type="button" class="p-2 bg-white rounded-full" data-expand="deliveryForm">
           <img src="{{ asset('assets/svgs/ic-chevron.svg') }}" class="transition-all duration-300 -rotate-180 size-5" alt="">
