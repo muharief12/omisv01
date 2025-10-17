@@ -31,7 +31,7 @@ class Post extends Model
     {
         static::creating(function ($post) {
             // hanya buat slug saat pertama kali
-            if (empty($postType->slug)) {
+            if (empty($post->slug)) {
                 $post->slug = static::generateUniqueSlug($post->name);
             }
             $post->like = 0;

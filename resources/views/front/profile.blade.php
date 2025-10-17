@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile | ABC Coffee Shop</title>
     <link rel="shortcut icon" href="{{ asset('assets/svgs/logo-mark.svg') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('css/main.css') }}"> -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -180,10 +181,10 @@
     </section>
 
     <!-- Floating navigation -->
-    <nav class="fixed z-50 bottom-[30px] bg-black rounded-[50px] pt-[18px] px-10 left-1/2 -translate-x-1/2 w-80">
+    <nav class="fixed z-50 bottom-[30px] bg-white/10 backdrop-blur-md border border-white/20 shadow-lg rounded-[50px] pt-[18px] px-10 left-1/2 -translate-x-1/2 w-80">
         <div class="flex items-center justify-center gap-5 flex-nowrap">
             <a href="/" class="flex flex-col items-center justify-center gap-1 px-1 group {{ request()->is('/') ? 'is-active' : ''}}">
-                <img src="{{ asset('assets/svgs/ic-grid.svg') }}" class="filter-to-grey group-[.is-active]:filter-to-primary" alt="">
+                <img src="{{ asset('assets/svgs/ic-grid.svg') }}" class="filter-to-grey group group-[.is-active]:filter-to-primary" alt="">
                 <p
                     class="border-b-4 border-transparent group-[.is-active]:border-primary pb-3 text-xs text-center font-semibold text-grey group-[.is-active]:text-primary">
                     Home
@@ -194,7 +195,7 @@
                     alt="">
                 <p
                     class="border-b-4 border-transparent group-[.is-active]:border-primary pb-3 text-xs text-center font-semibold text-grey group-[.is-active]:text-primary">
-                    Stores
+                    Article
                 </p>
             </a>
             <a href="{{ route('orders') }}" class="flex flex-col items-center justify-center gap-1 px-1 group">
@@ -205,7 +206,7 @@
                 </p>
             </a>
             <a href="{{ route('my_profile')}}" class="flex flex-col items-center justify-center gap-1 px-1 group {{ request()->is('my-profile*') ? 'is-active' : ''}}">
-                <img src="{{ asset('assets/svgs/ic-profile.svg') }}" class="filter-to-grey group-[.is-active]:filter-to-primary"
+                <img src="{{ asset('assets/svgs/ic-profile.svg') }}" class="filter-to-grey group group-[.is-active]:filter-to-primary"
                     alt="">
                 <p
                     class="border-b-4 border-transparent group-[.is-active]:border-primary pb-3 text-xs text-center font-semibold text-grey group-[.is-active]:text-primary">

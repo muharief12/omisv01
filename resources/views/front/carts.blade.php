@@ -150,7 +150,7 @@
           <form action="{{ route('carts.index') }}" method="GET" class="flex-1 flex gap-2">
             <input type="text" name="discount_code" id="discount_code"
               class="form-input flex-1 bg-[url('{{ asset('assets/svgs/ic-edit.svg') }}')]"
-              value="{{ $discountCode ?? '' }}">
+              value="{{ $discountCode ?? 'autofocus' }}">
             <button type="submit"
               class="inline-flex items-center justify-center px-5 py-3 text-base font-bold text-white rounded-full bg-primary whitespace-nowrap">
               Apply
@@ -167,6 +167,9 @@
           </form>
           @endif
         </div>
+        @if ($errors->has('discount_code'))
+        <p class="text-red-500">Kode discount/affiliate {{ $discount_code }} tidak valid.</p>
+        @endif
       </div>
 
     </div>

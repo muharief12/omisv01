@@ -53,9 +53,10 @@ class CartController extends Controller
             }
             // kalau tidak ditemukan di keduanya
             else {
-                return redirect()->back()->withErrors([
-                    'discount_code' => "Kode discount/affiliate '{$discountCode}' tidak valid."
-                ]);
+                return redirect()->back()
+                    ->withErrors([
+                        'discount_code' => "Kode discount/affiliate '{$discountCode}' tidak valid."
+                    ]);
             }
         } else {
             // kalau tidak ada query, tapi ada di session → tetap dipakai

@@ -6,8 +6,8 @@
 <!-- Header -->
 <section class="wrapper flex flex-col gap-2.5 items-center justify-center">
 	<p class="text-3xl font-extrabold text-center">
-		We Provide <br>
-		Best Cofee and Eatery
+		We Deliver <br>
+		Best Coffee and Eatery
 	</p>
 	<form action="{{ route('front.search')}}" method="GET" id="searchForm" class="w-full">
 		<input type="text" name="keyword" id="searchProduct"

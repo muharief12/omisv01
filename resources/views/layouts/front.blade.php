@@ -7,7 +7,8 @@
     <title>@yield('title') Page | OMIS v01</title>
     <link rel="shortcut icon" href="{{ asset('assets/svgs/logo-mark.svg') }}" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- <link rel="stylesheet" href="{{ asset('css/main.css') }}"> -->
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 </head>
 
@@ -66,7 +67,7 @@
     @yield('content')
 
     <!-- Floating navigation -->
-    <nav class="fixed z-50 bottom-[30px] bg-black rounded-[50px] pt-[18px] px-10 left-1/2 -translate-x-1/2 w-80">
+    <nav class="fixed z-50 bottom-[30px] bg-white/10 backdrop-blur-md border border-white/20 shadow-lg rounded-[50px] pt-[18px] px-10 left-1/2 -translate-x-1/2 w-80">
         <div class="flex items-center justify-center gap-5 flex-nowrap">
             <a href="/" class="flex flex-col items-center justify-center gap-1 px-1 group {{ request()->is('/') ? 'is-active' : ''}}">
                 <img src="{{ asset('assets/svgs/ic-grid.svg') }}" class="filter-to-grey group-[.is-active]:filter-to-primary" alt="">
@@ -80,7 +81,7 @@
                     alt="">
                 <p
                     class="border-b-4 border-transparent group-[.is-active]:border-primary pb-3 text-xs text-center font-semibold text-grey group-[.is-active]:text-primary">
-                    Articels
+                    Article
                 </p>
             </a>
             <a href="{{ route('orders') }}" class="flex flex-col items-center justify-center gap-1 px-1 group {{ request()->is('orders*') ? 'is-active' : ''}}">
