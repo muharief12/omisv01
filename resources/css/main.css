@@ -1062,7 +1062,7 @@ a {
 .border-primary {
     --tw-bg-opacity: 1;
     /* background-color: rgb(253 145 90 / var(--tw-bg-opacity)); */
-    background-color: #006e40;
+    border-color: #006e40;
 }
 
 .bg-white {
@@ -1425,7 +1425,8 @@ a {
     box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
         var(--tw-shadow, 0 0 #0000);
     --tw-ring-opacity: 1;
-    --tw-ring-color: rgb(253 145 90 / var(--tw-ring-opacity));
+    /* --tw-ring-color: rgb(253 145 90 / var(--tw-ring-opacity)); */
+    --tw-ring-color: #006e40;
 }
 
 .form-input::file-selector-button {
@@ -1507,7 +1508,8 @@ a {
 
 .has-\[\:checked\]\:ring-primary:has(:checked) {
     --tw-ring-opacity: 1;
-    --tw-ring-color: rgb(253 145 90 / var(--tw-ring-opacity));
+    /* --tw-ring-color: rgb(253 145 90 / var(--tw-ring-opacity)); */
+    --tw-ring-color: #006e40;
 }
 
 @media (min-width: 350px) {

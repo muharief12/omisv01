@@ -20,7 +20,7 @@
 
 <!-- Your last order -->
 <section class="wrapper">
-	<div
+	<!-- <div
 		style="background-image: url('{{ asset('assets/svgs/pipeline.svg') }}')"
 		class="flex justify-between gap-5 items-center bg-lilac py-3.5 px-4 rounded-2xl relative bg-left bg-no-repeat bg-cover">
 		<p class="text-base font-bold">
@@ -28,7 +28,8 @@
 			been proceed
 		</p>
 		<img src="{{ asset('assets/svgs/nekodicine.svg') }}" class="w-[90px] h-[70px]" alt="">
-	</div>
+	</div> -->
+	<img src="{{ asset('assets\images\bg-1.png')}}" class="w-full">
 </section>
 
 <!-- Categories -->
@@ -76,16 +77,31 @@
 
 <!-- Explore -->
 <section class="wrapper">
-	<div
+	<!-- <div
 		style="background-image: url('{{ asset('assets/svgs/doctor-help.svg') }}')"
 		class="bg-lilac py-3.5 px-5 rounded-2xl relative bg-right-bottom bg-no-repeat bg-auto">
 		<img src="{{ asset('assets/svgs/cloud.svg') }}" class="-ml-1.5 mb-1.5" alt="">
 		<div class="flex flex-col gap-4 mb-[23px]">
 			<p class="text-base font-bold">
-				Explore great doctors <br>
-				for your better life
+				Explore great menus <br>
+				for your better taste
 			</p>
-			<a href="#"
+			<a href="{{ route('front.search')}}"
+				class="rounded-full bg-white text-primary flex w-max gap-2.5 px-6 py-2 justify-center items-center text-base font-bold">
+				Explore
+			</a>
+		</div>
+	</div> -->
+	<div
+		style="background-image: url('{{ asset('assets/images/bg-2-no-caption.png') }}')"
+		class="bg-lilac py-5 px-5 rounded-2xl relative bg-no-repeat bg-cover">
+		<!-- <img src="{{ asset('assets/svgs/cloud.svg') }}" class="-ml-1.5 mb-1.5" alt=""> -->
+		<div class="mt-2 flex flex-col gap-4 mb-[23px]">
+			<p class="text-white font-bold">
+				Explore great menus <br>
+				for your better taste
+			</p>
+			<a href="{{ route('front.search')}}"
 				class="rounded-full bg-white text-primary flex w-max gap-2.5 px-6 py-2 justify-center items-center text-base font-bold">
 				Explore
 			</a>

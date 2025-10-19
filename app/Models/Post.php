@@ -27,6 +27,11 @@ class Post extends Model
         return $this->belongsTo(PostType::class, 'post_type_id', 'id');
     }
 
+    public function postLikes()
+    {
+        return $this->hasMany(PostLike::class, 'post_id');
+    }
+
     protected static function booted()
     {
         static::creating(function ($post) {

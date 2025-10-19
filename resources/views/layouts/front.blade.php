@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title') Page | OMIS v01</title>
-    <link rel="shortcut icon" href="{{ asset('assets/svgs/logo-mark.svg') }}" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="{{ \App\Models\AdminFee::first()?->logo ? Storage::url(\App\Models\AdminFee::first()->logo) : asset('assets/svgs/logo-mark.svg') }}" type="image/x-icon">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- <link rel="stylesheet" href="{{ asset('css/main.css') }}"> -->
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">

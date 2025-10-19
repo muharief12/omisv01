@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div> -->
-        <div class="flex bg-white border-l-4 border-red-500 rounded-2xl overflow-hidden shadow-sm">
+        <div class="flex bg-white border-l-4 border-primary rounded-2xl overflow-hidden shadow-sm">
             <!-- Gambar di sisi kiri full height -->
             <div class="w-32 h-full">
                 <img src="{{ Storage::url($post->image) }}" alt="" class="w-full h-full object-cover" />

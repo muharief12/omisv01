@@ -62,4 +62,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(AdminFee::class, 'user_id');
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'user_id');
+    }
+
+    public function postLikes()
+    {
+        return $this->hasMany(PostLike::class, 'user_id');
+    }
 }

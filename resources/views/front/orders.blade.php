@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order | Parma</title>
-    <link rel="shortcut icon" href="{{ asset('assets/svgs/logo-mark.svg') }}" type="image/x-icon">
+    <title>Order | OMISV01</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="shortcut icon" href="{{ \App\Models\AdminFee::first()?->logo ? Storage::url(\App\Models\AdminFee::first()->logo) : asset('assets/svgs/logo-mark.svg') }}" type="image/x-icon">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
@@ -32,7 +32,7 @@
         </p>
         <div class="flex flex-col gap-4">
             @forelse ($orders as $order)
-            <div class="py-3.5 pl-4 pr-[22px] bg-white border-l-4 border-bg-red rounded-2xl flex gap-1 items-center relative">
+            <div class="py-3.5 pl-4 pr-[22px] bg-white border-primary border-l-4 rounded-2xl flex gap-1 items-center relative">
 
                 <div class="flex flex-wrap items-center justify-between w-full gap-1">
                     <div class="flex flex-col gap-1">

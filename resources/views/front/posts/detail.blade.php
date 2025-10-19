@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Details Post | OMIS</title>
-  <link rel="shortcut icon" href="{{ asset('assets/svgs/logo-mark.svg') }}') }}" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ \App\Models\AdminFee::first()?->logo ? Storage::url(\App\Models\AdminFee::first()->logo) : asset('assets/svgs/logo-mark.svg') }}" type="image/x-icon">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="{{ asset('css/main.css') }}">
   <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
@@ -44,11 +44,21 @@
             </span>
           </div>
         </div>
-        <div class="flex items-center gap-1">
-          <img src="{{ asset('assets/svgs/ic-thumb-shape-filled.svg') }}" class="size-6" alt="">
-          <p class="font-semibold text-balance">
-            {{ number_format($post->like) }} Likes
-          </p>
+        <div class="flex justify-content-evently items-center gap-1">
+          <button id="btn-like" data-id="{{ $post->id }}">
+            <!-- <img src="{{ asset('assets/svgs/ic-thumb-shape-filled.svg') }}" class="size-6" alt=""> -->
+            <span id="icon-like">
+              @if($post->postLikes->where('user_id', auth()->id())->first())
+              ❤️
+              @else
+              🤍
+              @endif
+            </span>
+            <p class="font-semibold text-balance">
+              <!-- {{ number_format($post->like) }} Likes -->
+              <span id="like-count">{{ $post->postLikes->count() }}</span> Likes
+            </p>
+          </button>
         </div>
       </div>
       <div class="my-3.5 text-justify">
@@ -62,6 +72,41 @@
   <script src="{{ url('https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js')}}"></script>
 
   <script src="{{ asset('scripts/sliderConfig.js')}}" type="module"></script>
+  <script>
+    $(document).ready(function() {
+      $('#btn-like').click(function(e) {
+        e.preventDefault();
+
+        let post_id = $(this).data('id');
+        let token = "{{ csrf_token() }}";
+
+        $.ajax({
+          url: "{{ route('like.store') }}", // tetap kirim ke /like
+          type: "POST",
+          data: {
+            _token: token,
+            post_id: post_id
+          },
+          success: function(response) {
+            let icon = $('#icon-like');
+            let countSpan = $('#like-count');
+            let count = parseInt(countSpan.text());
+
+            if (response.status === 'liked') {
+              icon.text('❤️');
+              countSpan.text(count + 1);
+            } else {
+              icon.text('🤍');
+              countSpan.text(count - 1);
+            }
+          },
+          error: function(xhr) {
+            console.error(xhr.responseText);
+          }
+        });
+      });
+    });
+  </script>
 </body>
 
 </html>

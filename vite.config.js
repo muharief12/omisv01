@@ -17,7 +17,7 @@ export default defineConfig({
         extend: {
             colors: {
                 // primary: "#FD915A",
-                // primary: "#009e42ff",
+                primary: "#009e42ff",
                 secondary: "#F7F1F0",
                 black: "#121212",
                 grey: "#ADAAB4",
@@ -31,4 +31,11 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+        host: "0.0.0.0",
+        port: 5173,
+        hmr: {
+            host: "192.168.0.136", // otomatis mengikuti APP_URL
+        },
+    },
 });

@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminFeeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductTransactionController;
 use App\Http\Controllers\ProfileController;
@@ -40,6 +41,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // route khusus AJAX untuk like/unlike
+    Route::post('/like', [PostLikeController::class, 'store'])->name('like.store');
 
     Route::resource('carts', CartController::class);
     Route::post('carts/add/{productId}', [CartController::class, 'store'])->name('carts.add');
