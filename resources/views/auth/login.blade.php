@@ -15,7 +15,7 @@
     <a href="/">
       <img src="{{ \App\Models\AdminFee::first()?->logo 
         ? Storage::url(\App\Models\AdminFee::first()->logo) 
-        : asset('assets/svgs/logo.svg') }}" class="mb-[53px]" alt="">
+        : asset('/assets/svgs/logo.svg') }}" class="mb-[53px]" alt="">
     </a>
     <form action="{{ route('login')}}" method="POST" class="mx-auto max-w-[345px] w-full p-6 bg-white rounded-3xl mt-auto" id="deliveryForm">
       @csrf
