@@ -4,10 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Category Results | Parma</title>
-  <link rel="shortcut icon" href="{{ asset('assets/svgs/logo-mark.svg') }}" type="image/x-icon">
+  <title>Category Results | OMIS V01</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+  <link rel="shortcut icon" href="{{ \App\Models\AdminFee::first()?->logo ? Storage::url(\App\Models\AdminFee::first()->logo) : asset('assets/svgs/logo-mark.svg') }}" type="image/x-icon">
+
+  <!-- Scripts -->
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
@@ -16,7 +18,7 @@
     <a href="{{ url('/')}}" class="p-2 bg-white rounded-full">
       <img src="{{ asset('assets/svgs/ic-arrow-left.svg') }}" class="size-5" alt="">
     </a>
-    <p class="absolute text-base font-semibold translate-x-1/2 -translate-y-1/2 top-1/2 right-1/2">
+    <p class="absolute text-center text-base font-semibold translate-x-1/2 -translate-y-1/2 top-1/2 right-1/2">
       {{ $category->name }} products
     </p>
     <button type="button" class="p-2 bg-white rounded-full">

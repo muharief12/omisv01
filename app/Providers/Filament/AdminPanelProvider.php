@@ -31,6 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->brandLogo(asset('storage/' . AdminFee::where('is_active', true)->first()?->logo))
+            ->brandLogoHeight('50px')
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -41,8 +42,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
+                // AccountWidget::class,
+                // FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

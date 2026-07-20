@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Enable HTTPS in local environment for testing purposes using ngrok
+        #Enable HTTPS in local environment for testing purposes using ngrok
         // if (config('app.env') === 'local') {
         //     URL::forceHttps();
         // }

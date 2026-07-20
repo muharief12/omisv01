@@ -133,7 +133,7 @@
       </button>
 
       @else
-      <form action="{{ route('carts.add', $product->id)}}" method="post">
+      <form action="{{ route('carts.add', $product->id)}}" method="post" enctype="multipart/form-data">
         @csrf
         <button type="submit" class="inline-flex w-max text-white font-bold text-base bg-primary rounded-full px-[30px] py-3 justify-center items-center whitespace-nowrap">
           Add to Cart

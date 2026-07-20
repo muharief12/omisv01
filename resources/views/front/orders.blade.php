@@ -52,10 +52,14 @@
                         <img src="{{ asset('assets/svgs/star.svg') }}" class="size-[18px]" alt="">
                         <img src="{{ asset('assets/svgs/star.svg') }}" class="size-[18px]" alt="">
                         <img src="{{ asset('assets/svgs/star.svg') }}" class="size-[18px]" alt=""> -->
-                        @if ($order->is_paid === 0)
-                        <span class="inline-flex items-center rounded-md bg-yellow-400/10 px-2 py-1 text-xs font-medium text-yellow-500 inset-ring inset-ring-yellow-400/20">Waiting</span>
-                        @else
-                        <span class="inline-flex items-center rounded-md bg-green-400/10 px-2 py-1 text-xs font-medium text-green-400 inset-ring inset-ring-green-500/20">Paid</span>
+                        @if ($order->status === 'pending')
+                        <span class="inline-flex items-center rounded-md bg-yellow-400/10 px-2 py-1 text-xs font-medium text-yellow-500 inset-ring inset-ring-yellow-400/20">{{ $order->status }}</span>
+                        @elseif ($order->status === 'processing')
+                        <span class="inline-flex items-center rounded-md bg-yellow-400/10 px-2 py-1 text-xs font-medium text-yellow-500 inset-ring inset-ring-yellow-400/20">{{ $order->status }}</span>
+                        @elseif ($order->status === 'serving')
+                        <span class="inline-flex items-center rounded-md bg-green-400/10 px-2 py-1 text-xs font-medium text-green-400 inset-ring inset-ring-green-500/20">{{ $order->status }}</span>
+                        @elseif ($order->status === 'completed')
+                        <span class="inline-flex items-center rounded-md bg-green-400/10 px-2 py-1 text-xs font-medium text-green-400 inset-ring inset-ring-green-500/20">{{ $order->status }}</span>
                         @endif
                     </div>
                 </div>

@@ -1,0 +1,60 @@
+{
+  "public/assets/svgs/doctor-help.svg": {
+    "file": "assets/doctor-help-sD8XoSuW.svg",
+    "src": "public/assets/svgs/doctor-help.svg"
+  },
+  "public/assets/svgs/ic-email.svg": {
+    "file": "assets/ic-email-2N-bVTqO.svg",
+    "src": "public/assets/svgs/ic-email.svg"
+  },
+  "public/assets/svgs/ic-folder-add.svg": {
+    "file": "assets/ic-folder-add-BeVb2OSH.svg",
+    "src": "public/assets/svgs/ic-folder-add.svg"
+  },
+  "public/assets/svgs/ic-house.svg": {
+    "file": "assets/ic-house-CsJJgE9a.svg",
+    "src": "public/assets/svgs/ic-house.svg"
+  },
+  "public/assets/svgs/ic-location.svg": {
+    "file": "assets/ic-location-BCHo0_Og.svg",
+    "src": "public/assets/svgs/ic-location.svg"
+  },
+  "public/assets/svgs/ic-lock.svg": {
+    "file": "assets/ic-lock-B6rqY0FK.svg",
+    "src": "public/assets/svgs/ic-lock.svg"
+  },
+  "public/assets/svgs/ic-map.svg": {
+    "file": "assets/ic-map-DRDxZiBs.svg",
+    "src": "public/assets/svgs/ic-map.svg"
+  },
+  "public/assets/svgs/ic-phone.svg": {
+    "file": "assets/ic-phone-DtSWIIDE.svg",
+    "src": "public/assets/svgs/ic-phone.svg"
+  },
+  "public/assets/svgs/ic-profile.svg": {
+    "file": "assets/ic-profile-BGUCKwPl.svg",
+    "src": "public/assets/svgs/ic-profile.svg"
+  },
+  "public/assets/svgs/ic-search.svg": {
+    "file": "assets/ic-search-VqiPeT5a.svg",
+    "src": "public/assets/svgs/ic-search.svg"
+  },
+  "public/assets/svgs/pipeline.svg": {
+    "file": "assets/pipeline-BwSOHc3a.svg",
+    "src": "public/assets/svgs/pipeline.svg"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-CTK9MitL.css",
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-C0G0cght.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  }
+}

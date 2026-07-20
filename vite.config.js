@@ -31,11 +31,14 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    server: {
-        host: "0.0.0.0",
-        port: 5173,
-        hmr: {
-            host: "192.168.0.136", // otomatis mengikuti APP_URL
-        },
-    },
+    // server: {
+    //     host: "0.0.0.0",
+    //     port: 5173,
+    //     hmr: {
+    //         host: "192.168.0.136", // otomatis mengikuti APP_URL
+    //         // host: "10.54.13.97", // otomatis mengikuti APP_URL
+    //         // host: "logical-rim-room-visitors.trycloudflare.com",
+    //         // host: "127.0.0.1",
+    //     },
+    // },
 });

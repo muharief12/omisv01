@@ -17,6 +17,11 @@ class ProductTransaction extends Model
         return $this->hasMany(TransactionDetail::class, 'product_transaction_id');
     }
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
     public function discount(): BelongsTo
     {
         return $this->belongsTo(Discount::class, 'discount_id', 'id');

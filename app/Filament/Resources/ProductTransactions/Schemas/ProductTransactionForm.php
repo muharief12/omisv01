@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\ProductTransactions\Schemas;
 
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
@@ -13,9 +15,10 @@ class ProductTransactionForm
     {
         return $schema
             ->components([
-                TextInput::make('user_id')
-                    ->required()
-                    ->numeric(),
+                Select::make('user_id')
+                    ->relationship('user', 'name')
+                    ->searchable()
+                    ->required(),
                 TextInput::make('total_amount')
                     ->required()
                     ->numeric(),
@@ -33,8 +36,8 @@ class ProductTransactionForm
                 Textarea::make('notes')
                     ->required()
                     ->columnSpanFull(),
-                TextInput::make('proof')
-                    ->required(),
+                FileUpload::make('proof')
+                    ->nullable(),
             ]);
     }
 }
